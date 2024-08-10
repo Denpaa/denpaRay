@@ -1,16 +1,25 @@
-//
-//  common.h
-//  Contains all the functions used by other files
-//  This needs to be included after all the standard headers and before the user-defined headers
+//  common.hpp
+//  Contains all the functions and definitions used by other files
+//  This should be included after all the standard headers and before the user-defined headers
 //  Created by 電波
-//
 
 #pragma once
 
+#define PI32 3.14159265359
+
 // -----------------------------------------------
-// @denpa: Controls the tolerance for equality between two floats.
+// @denpa: All the common types are typedef'd here.
 // -----------------------------------------------
-#define EPSILON 0.00001f
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+typedef int8_t i8;
+typedef int16_t i16;
+typedef int32_t i32;
+typedef int64_t i64;
+typedef float f32;
+typedef double f64;
 
 // -----------------------------------------------
 // @denpa: Detects the platform being used.
@@ -45,10 +54,11 @@
 #define DENPA_PLATFORM_IOS 1
 #elif TARGET_OS_MAC
 #else
-#error "Unknown Apple platform."
+#error "Unknown Apple platform"
 #endif
+
 #else
-#error "Unknown platform."
+#error "Unknown platform"
 #endif
 
 // -----------------------------------------------
@@ -72,29 +82,44 @@
 #define DENPA_NOINLINE __declspec(noinline)
 
 #else
-#define DENPA_INLINE static inline
+#define DENPA_INLINE inline
 #define DENPA_NOINLINE
 #endif
 
-#define DINLINE static DENPA_INLINE
-#define DNOINLINE static DENPA_NOINLINE
+#define DINLINE DENPA_INLINE
+#define DNOINLINE DENPA_NOINLINE
 
 // -----------------------------------------------
-// @denpa: Used to label unused functions and parameters.
+// @denpa: Used to label intent and unused functions and parameters.
 // -----------------------------------------------
 #define UNUSED __attribute__((unused))
+#define GLOBAL_VARIABLE static
+#define LOCAL_PERSIST static
+#define INTERNAL static
 
 // -----------------------------------------------
-// @denpa: Some universally one-liner helper functions.
+// @denpa: Some universally useful one-liner helper functions.
 // -----------------------------------------------
-#define DENPA_CLAMP(value, min, max) ((value <= min) ? min : (value >= max) ? max : value)
-#define DENPA_MIN(x, y) (x < y ? x : y)
-#define DENPA_MAX(x, y) (x > y ? x : y)
+#define DENPA_CLAMP(value, min, max) (((value) <= (min)) ? (min) : ((value) >= (max)) ? (max) : (value))
+#define DENPA_MIN(x, y) ((x) < (y) ? (x) : (y))
+#define DENPA_MAX(x, y) ((x) > (y) ? (x) : (y))
+#define DENPA_ARRAY_SIZE(a) ((sizeof((a))) / (sizeof((a)[0])))
+#define DENPA_KILOBYTES(number) ((number)*1024ull)
+#define DENPA_MEGABYTES(number) (DENPA_KILOBYTES((number)) * 1024ull)
+#define DENPA_GIGABYTES(number) (DENPA_MEGABYTES((number)) * 1024ull)
+#define DENPA_TERABYTES(number) (DENPA_GIGABYTES((number)) * 1024ull)
+#define DENPA_ALIGN16(value) (((value) + 15) & ~15)
+#define DENPA_ALIGN4(value) (((value) + 3) & ~3)
+
+// -----------------------------------------------
+// @denpa: Controls the tolerance for equality between two floats.
+// -----------------------------------------------
+#define EPSILON 0.00001f
 
 // -----------------------------------------------
 // @denpa: Checks if two floats are equal (with some degree of inaccuracy)
 // -----------------------------------------------
-DINLINE bool areFloatsEqual(float a, float b) {
+INTERNAL DINLINE bool areFloatsEqual(float a, float b) {
 	if (abs(a-b) < EPSILON) {return true;}
 	return false;
 }
