@@ -1,3 +1,3 @@
-未完成のCPUレイトレーサーです。
+簡単なCPUレイトレーサーです。
 
-![gold](https://github.com/user-attachments/assets/bde71478-8b24-4f61-a857-a3099f2d5dbf)
+![denpa](https://github.com/user-attachments/assets/bde71478-8b24-4f61-a857-a3099f2d5dbf)
