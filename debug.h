@@ -1,52 +1,54 @@
-//
-//  debug.h
+//  debug.hpp
 //  Contains exclusively debugging functions
 //  Created by 電波
-//
 
 #pragma once
 
-static void test(void) {
+// -----------------------------------------------
+// @denpa: Intended to be used to run simple tests.
+// -----------------------------------------------
+INTERNAL DNOINLINE UNUSED void test(void) {
 
 }
 
 // -----------------------------------------------
-// @denpa:
+// @denpa: Prints a colour.
 // -----------------------------------------------
-DNOINLINE UNUSED void printColour(colour a) {
+INTERNAL DNOINLINE UNUSED void printColour(colour a) {
 	printf("R: %.5f, G: %.5f, B: %.5f\n", (double)a.r, (double)a.g, (double)a.b);
 }
 
 // -----------------------------------------------
-// @denpa:
+// @denpa: Prints a tuple.
 // -----------------------------------------------
-DNOINLINE UNUSED void printTuple(tuple a) {
+INTERNAL DNOINLINE UNUSED void printTuple(tuple a) {
 	printf("X: %.7f, Y: %.7f, Z: %.7f, W: %.7f\n", (double)a.x, (double)a.y, (double)a.z, (double)a.w);
 }
 
 // -----------------------------------------------
-// @denpa: Intended for debugging. Prints a 4x4 matrix.
+// @denpa: Prints a 4x4 matrix.
 // -----------------------------------------------
-DNOINLINE UNUSED void printMatrix4x4(matrix4x4 a) {
-	for (uint32_t i = 0; i < 16; i+=4) {
+INTERNAL DNOINLINE UNUSED void printMatrix4x4(matrix4x4 a) {
+	for (u64 i = 0; i < 16; i+=4) {
 		printf("%.7f %.7f %.7f %.7f\n", (double)a.v[i], (double)a.v[i+1], (double)a.v[i+2], (double)a.v[i+3]);
 	}
 }
 
 // -----------------------------------------------
-// @denpa: Intended for debugging. Prints individual intersections.
+// @denpa: Prints individual intersections.
 // -----------------------------------------------
-DINLINE UNUSED void printIntersection(intersection intersection) {
-	printf("%d, %.4f\n", intersection.objectType, (double)intersection.t); //TODO: Make it print the OBJECT_TYPE string instead of the raw integers.
+INTERNAL DINLINE UNUSED void printIntersection(intersection i) {
+	printf("t-value: %.4f\n", (double)i.t);
 }
 
 // -----------------------------------------------
-// @denpa: Intended for debugging. Prints all of the intersections in a list of intersections.
+// @denpa: Prints all of the intersections in a list of intersections.
 // -----------------------------------------------
-DNOINLINE UNUSED void printIntersectionsList(intersectionsList intersectionsList) {
-	if (intersectionsList.intersectionCount > 0) {
-		for (uint32_t i = 0; i < intersectionsList.intersectionCount; i++) {
-			printIntersection(intersectionsList.intersections[i]);
+INTERNAL DNOINLINE UNUSED void printListOfIntersections(listOfIntersections list) {
+	if (list.intersectionCount > 0) {
+		for (u64 i = 0; i < list.intersectionCount; i++) {
+			printf("ID: %llu, ", i);
+			printIntersection(list.intersections[i]);
 		}
 	}
 }
