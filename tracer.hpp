@@ -2,6 +2,8 @@
 //  Contains functions, definitions and structures related to the actual tracing part of the program
 //  Created by 電波
 
+#pragma once
+
 // -----------------------------------------------
 // @denpa: Intersections between rays and objects in one structure.
 // -----------------------------------------------
