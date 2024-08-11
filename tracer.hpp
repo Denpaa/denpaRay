@@ -62,8 +62,7 @@ typedef struct sphere {
 // -----------------------------------------------
 // @denpa: Creates a sphere with a radius of 1.f and a default transformation with the origin at 0.f, 0.f, 0.f.
 // -----------------------------------------------
-INTERNAL DNOINLINE sphere createSphere(void) {// TODO: increment sphereID each time. Find appropriate algorithm.
-	static u32 sphereID;
+INTERNAL DNOINLINE sphere createSphere(void) {
 	return (sphere) {.origin = {{0.f, 0.f, 0.f, 1.f}},
 					.radius = 1.f,
 					.transformation = identityMatrix4x4(),
